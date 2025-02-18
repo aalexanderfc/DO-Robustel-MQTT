@@ -186,9 +186,6 @@ sudo systemctl start mqtt-led
 
 ---
 
-## **📜 License**
-This project is **open-source** and licensed under the **MIT License**.
-
 🚀 **Now you have full MQTT-based control of your Robustel router relays with a modern web UI!** 🎉🔥  
 
 ---
