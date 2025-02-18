@@ -160,7 +160,7 @@ Description=MQTT to DO Control Service
 After=network.target
 
 [Service]
-ExecStart=/usr/bin/python3 /home/andersgrudd/mqtt-led-do.py
+ExecStart=/usr/bin/python3 /home/username/mqtt-led-do.py
 Restart=always
 User=root
 
