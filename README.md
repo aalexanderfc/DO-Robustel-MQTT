@@ -1,5 +1,3 @@
-Here’s a **README** draft for your GitHub repository describing the **Robustel MQTT integration with Node-RED** for **DO3/DO4 control**. Let me know if you want any modifications! 🚀  
-
 ---
 
 # **Robustel MQTT Integration for DO Control via Node-RED**  
@@ -190,4 +188,3 @@ sudo systemctl start mqtt-led
 
 ---
 
-Would you like any changes before finalizing? 😊
