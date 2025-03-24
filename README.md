@@ -18,9 +18,19 @@ This project enables **MQTT-based control of external relays** connected to **DO
 Ensure you have the following installed on the **Robustel router**:  
 - **Python 3.x**  
 - **Mosquitto MQTT Broker**  
+- **Node.js** (Required for Node-RED)  
 - **Node-RED v2 with Dashboard**  
 
-### **2️⃣ Install Required Python Libraries**  
+### **2️⃣ Install Node.js and Node-RED**
+To install **Node.js** and **Node-RED**, follow these steps:
+
+```bash
+sudo apt update
+sudo apt install nodejs npm
+sudo npm install -g --unsafe-perm node-red
+```
+
+### **3️⃣ Install Required Python Libraries**  
 Run the following command to install `paho-mqtt` for MQTT communication:  
 ```bash
 sudo python3 -m pip install paho-mqtt
@@ -28,7 +38,7 @@ sudo python3 -m pip install paho-mqtt
 
 ---
 
-## **🔧 3️⃣ Connect External Relays to DO3 and DO4**
+## **🔧 4️⃣ Connect External Relays to DO3 and DO4**
 Since the **Robustel router does not have built-in relays**, we need to connect external relays to **DO3 and DO4**.
 
 ### **Wiring the External Relays**
@@ -40,7 +50,7 @@ Since the **Robustel router does not have built-in relays**, we need to connect 
 
 ---
 
-## **📝 4️⃣ Configure Robustel Router for DO Control**  
+## **📝 5️⃣ Configure Robustel Router for DO Control**  
 The **DO3 and DO4 outputs** are controlled via **/sys/class/leds/** instead of traditional GPIO.
 
 ### **Test Relay Control Manually**  
@@ -54,7 +64,7 @@ echo 0 | sudo tee /sys/class/leds/do2/brightness  # Turn OFF Relay 2 (DO4)
 
 ---
 
-## **📝 5️⃣ Create Python Script for MQTT → DO Control**  
+## **📝 6️⃣ Create Python Script for MQTT → DO Control**  
 
 Create a script called `mqtt-led-do.py`:  
 ```python
@@ -96,7 +106,7 @@ sudo python3 mqtt-led-do.py
 
 ---
 
-## **📡 6️⃣ Test MQTT Commands**
+## **📡 7️⃣ Test MQTT Commands**
 Use the following commands to control **DO3 and DO4 manually** via MQTT:  
 ```bash
 mosquitto_pub -h 127.0.0.1 -t "robustel/do/control" -m '{"do3":1}'  # ON Relay 1 (DO3)
@@ -105,85 +115,6 @@ mosquitto_pub -h 127.0.0.1 -t "robustel/do/control" -m '{"do4":1}'  # ON Relay 2
 mosquitto_pub -h 127.0.0.1 -t "robustel/do/control" -m '{"do4":0}'  # OFF Relay 2 (DO4)
 ```
 ✅ **If relays click, MQTT → DO control is working!** 🎉  
-
----
-
-## **🌍 7️⃣ Configure Node-RED Dashboard v2**
-### **A. Open Node-RED**
-Start Node-RED:
-```bash
-node-red
-```
-Access UI:
-```
-http://<ROUTER_IP>:1880
-```
-
-### **B. Install MQTT & Dashboard Nodes**
-1. **Go to `Manage Palette` → `Install`**  
-2. Install:  
-   ```
-   node-red-node-mqtt
-   npm install @flowfuse/node-red-dashboard
-   ```
-
-### **C. Add Switch for DO3 and DO4**
-1. Drag **`dashboard → switch (v2)`** into the flow.  
-2. **Double-click the switch node** and set:
-   - **Name**: `Relay 1 (DO3)`
-   - **Topic**: `robustel/do/control`
-   - **Payload ON**: `{"do3":1}`
-   - **Payload OFF**: `{"do3":0}`
-   - **Enable JSON Output** ✅  
-
-3. **Duplicate the switch for DO4** and set:
-   - **Name**: `Relay 2 (DO4)`
-   - **Payload ON**: `{"do4":1}`
-   - **Payload OFF**: `{"do4":0}`  
-
-### **D. Connect to `MQTT Out`**
-1. **Drag an `MQTT out` node** into the flow.
-2. **Set MQTT broker**: `127.0.0.1`
-3. **Connect switches to `MQTT out`**
-4. **Deploy the flow**
-
-### **E. Open Web UI & Test**
-Open:
-```
-http://<ROUTER_IP>:1880/ui
-```
-✅ **Toggle switches to control external relays in real-time!** 🎨  
-
----
-
-## **🛠 8️⃣ Make MQTT Script Run at Startup**
-To ensure `mqtt-led-do.py` starts automatically on reboot:
-
-1. **Create a systemd service file**  
-```bash
-sudo nano /etc/systemd/system/mqtt-led.service
-```
-2. **Paste the following configuration**:
-```ini
-[Unit]
-Description=MQTT to DO Control Service
-After=network.target
-
-[Service]
-ExecStart=/usr/bin/python3 /home/username/mqtt-led-do.py
-Restart=always
-User=root
-
-[Install]
-WantedBy=multi-user.target
-```
-3. **Enable the service**:
-```bash
-sudo systemctl daemon-reload
-sudo systemctl enable mqtt-led
-sudo systemctl start mqtt-led
-```
-✅ **Now, the script runs automatically on boot!** 🔥  
 
 ---
 
@@ -196,6 +127,5 @@ sudo systemctl start mqtt-led
 
 ---
 
-🚀 **Now you have full MQTT-based control of external relays on your Robustel router with a modern web UI!** 🎉🔥  
+🚀 **Now you have full MQTT-based control of external relays on your Robustel router with a modern web UI!** 🎉🔥
 
----
