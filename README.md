@@ -4,7 +4,7 @@
 
 This project enables **MQTT-based control of external relays** connected to **DO3 and DO4** on a **Robustel router**. The integration allows switching **relays ON/OFF via MQTT messages** and provides a **web-based UI** using Node-RED Dashboard v2.
 
-## **📌 Features**  
+## ** Features**  
 ✅ Control **external relays** via MQTT commands  
 ✅ Web-based dashboard using **Node-RED v2**  
 ✅ **Real-time relay control** via `/sys/class/leds/` (DO3/DO4 output)  
@@ -12,16 +12,16 @@ This project enables **MQTT-based control of external relays** connected to **DO
 
 ---
 
-## **🚀 Setup Guide**  
+## ** Setup Guide**  
 
-### **1️⃣ Prerequisites**  
+### **1️ Prerequisites**  
 Ensure you have the following installed on the **Robustel router**:  
 - **Python 3.x**  
 - **Mosquitto MQTT Broker**  
 - **Node.js** (Required for Node-RED)  
 - **Node-RED v2 with Dashboard**  
 
-### **2️⃣ Install Node.js and Node-RED**
+### **2️ Install Node.js and Node-RED**
 To install **Node.js** and **Node-RED**, follow these steps:
 
 ```bash
@@ -30,7 +30,7 @@ sudo apt install nodejs npm
 sudo npm install -g --unsafe-perm node-red
 ```
 
-### **3️⃣ Install Required Python Libraries**  
+### **3️  Install Required Python Libraries**  
 Run the following command to install `paho-mqtt` for MQTT communication:  
 ```bash
 sudo python3 -m pip install paho-mqtt
@@ -38,7 +38,7 @@ sudo python3 -m pip install paho-mqtt
 
 ---
 
-## **🔧 4️⃣ Connect External Relays to DO3 and DO4**
+## **🔧 4️ Connect External Relays to DO3 and DO4**
 Since the **Robustel router does not have built-in relays**, we need to connect external relays to **DO3 and DO4**.
 
 ### **Wiring the External Relays**
@@ -50,7 +50,7 @@ Since the **Robustel router does not have built-in relays**, we need to connect 
 
 ---
 
-## **📝 5️⃣ Configure Robustel Router for DO Control**  
+## **📝 5️ Configure Robustel Router for DO Control**  
 The **DO3 and DO4 outputs** are controlled via **/sys/class/leds/** instead of traditional GPIO.
 
 ### **Test Relay Control Manually**  
@@ -64,7 +64,7 @@ echo 0 | sudo tee /sys/class/leds/do2/brightness  # Turn OFF Relay 2 (DO4)
 
 ---
 
-## **📝 6️⃣ Create Python Script for MQTT → DO Control**  
+## **📝 6️ Create Python Script for MQTT → DO Control**  
 
 Create a script called `mqtt-led-do.py`:  
 ```python
@@ -106,7 +106,7 @@ sudo python3 mqtt-led-do.py
 
 ---
 
-## **📡 7️⃣ Test MQTT Commands**
+## **📡 7️ Test MQTT Commands**
 Use the following commands to control **DO3 and DO4 manually** via MQTT:  
 ```bash
 mosquitto_pub -h 127.0.0.1 -t "robustel/do/control" -m '{"do3":1}'  # ON Relay 1 (DO3)
@@ -118,7 +118,7 @@ mosquitto_pub -h 127.0.0.1 -t "robustel/do/control" -m '{"do4":0}'  # OFF Relay 
 
 ---
 
-## **📌 Summary**
+## ** Summary**
 ✅ **Configured external relay control via DO3/DO4 on Robustel**  
 ✅ **Created a Python script to control relays via MQTT**  
 ✅ **Tested MQTT commands manually**  
@@ -127,5 +127,5 @@ mosquitto_pub -h 127.0.0.1 -t "robustel/do/control" -m '{"do4":0}'  # OFF Relay 
 
 ---
 
-🚀 **Now you have full MQTT-based control of external relays on your Robustel router with a modern web UI!** 🎉🔥
+🚀 **Now you have full MQTT-based control of external relays on your Robustel router with a modern web UI!** 
 
