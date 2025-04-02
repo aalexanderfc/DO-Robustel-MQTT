@@ -38,7 +38,7 @@ sudo python3 -m pip install paho-mqtt
 
 ---
 
-## **🔧 4️ Connect External Relays to DO3 and DO4**
+## **4️ Connect External Relays to DO3 and DO4**
 Since the **Robustel router does not have built-in relays**, we need to connect external relays to **DO3 and DO4**.
 
 ### **Wiring the External Relays**
@@ -50,7 +50,7 @@ Since the **Robustel router does not have built-in relays**, we need to connect 
 
 ---
 
-## **📝 5️ Configure Robustel Router for DO Control**  
+## **5️ Configure Robustel Router for DO Control**  
 The **DO3 and DO4 outputs** are controlled via **/sys/class/leds/** instead of traditional GPIO.
 
 ### **Test Relay Control Manually**  
@@ -64,7 +64,7 @@ echo 0 | sudo tee /sys/class/leds/do2/brightness  # Turn OFF Relay 2 (DO4)
 
 ---
 
-## **📝 6️ Create Python Script for MQTT → DO Control**  
+## ** 6️ Create Python Script for MQTT → DO Control**  
 
 Create a script called `mqtt-led-do.py`:  
 ```python
@@ -127,5 +127,5 @@ mosquitto_pub -h 127.0.0.1 -t "robustel/do/control" -m '{"do4":0}'  # OFF Relay 
 
 ---
 
-🚀 **Now you have full MQTT-based control of external relays on your Robustel router with a modern web UI!** 
+ **Now you have full MQTT-based control of external relays on your Robustel router with a modern web UI!** 
 
